@@ -18,3 +18,23 @@ https://github.com/wesm/pydata-book
 
 作业
 https://github.com/fengdu78/Coursera-ML-AndrewNg-Notes
+
+## 相关工具安装
+
+### 安装 octave
+
+octave 官网
+https://www.gnu.org/software/octave/index#
+
+```shell
+brew update
+brew install octave
+```
+
+启动
+
+```shell
+# do shell script "/usr/local/bin/octave --gui"  太复杂！
+
+octave --gui
+```
