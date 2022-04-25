@@ -38,3 +38,26 @@ brew install octave
 
 octave --gui
 ```
+
+### 安装 jupyter
+
+```shell
+brew install jupyterlab
+
+jupyter notebook
+```
+
+慕课网
+liuyubobobo 老师的课
+
+### 安装 pyTorch
+
+先安装 anaconda
+
+https://www.anaconda.com/
+
+再安装依赖
+
+https://pytorch.org/get-started/locally/#macos-version
+
+速度慢就需要切换源
