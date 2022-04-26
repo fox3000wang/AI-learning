@@ -66,8 +66,6 @@ def main():
     for i in range(100):  # 数据可视化
         writer.add_scalar("y=2x", 3*i, i)  # 数据格式为scalar
 
-    writer.close()
-
     # 训练数据加载器
     training_set = datasets.CIFAR10(
         root="data",
@@ -80,6 +78,8 @@ def main():
     for i in range(20):
         img, target = training_set[i]
         writer.add_image("test_set", img, i)
+
+    writer.close()
 
 
 # training_data = datasets.FashionMNIST(
