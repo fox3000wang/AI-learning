@@ -21,7 +21,7 @@ https://github.com/fengdu78/Coursera-ML-AndrewNg-Notes
 
 ## 相关工具安装
 
-### 安装 octave
+### 安装 octave (可选)
 
 octave 官网
 https://www.gnu.org/software/octave/index#
@@ -61,3 +61,15 @@ https://www.anaconda.com/
 https://pytorch.org/get-started/locally/#macos-version
 
 速度慢就需要切换源
+
+### 安装其他依赖
+
+```shell
+
+pip3 install opencv-python
+
+pip3 install image
+
+pip3 install tensorboard
+
+```
