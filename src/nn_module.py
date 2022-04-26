@@ -14,7 +14,7 @@ from torch.utils.tensorboard import SummaryWriter   # 数据可视化
 class Tudui(nn.Module):
     def __init__(self):
         super(Tudui, self).__init__()
-        self.conv1 = Conv2d(3, 6, 3)
+        self.conv1 = Conv2d(3, 6, 3)  # 卷积层
 
     def forward(self, input):
         return self.conv1(input)
