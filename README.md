@@ -83,3 +83,18 @@ pip3 install image
 pip3 install tensorboard
 
 ```
+
+### Copilot 快捷键
+
+```shell
+
+Copilot 也提供了一些快捷键，可以很方便地使用。
+
+接受建议：Tab
+拒绝建议：Esc
+打开 Copilot：Ctrl + Enter （会打开一个单独的面板，展示 10 个建议）
+下一条建议：Alt/Option + ]
+上一条建议：Alt/Option + [
+触发行内 Copilot：Alt/Option + \ （Coplit 还没有给出建议或者建议被拒绝了，希望手工触发它提供建议）
+
+```
