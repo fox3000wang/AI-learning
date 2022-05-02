@@ -2,6 +2,7 @@
 '''
 手写数字识别
 '''
+import datetime
 
 import torch
 from torch import nn  # 神经网络模块
@@ -14,11 +15,17 @@ from torch.utils.data import DataLoader
 
 from matplotlib import pyplot as plt
 
+start = datetime.datetime.now()
 
 # 定义超参数
 BATCH_SIZE = 16  # 批大小
+# BATCH_SIZE = 512  # 批大小
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")  # 设备
-EPOCHS = 10  # 训练次数
+# EPOCHS = 10  # 训练次数
+EPOCHS = 1  # 训练次数
+
+print('batch_size:{} use:{} epochs:{}'.format(BATCH_SIZE, DEVICE, EPOCHS))
+
 
 # 构建pipline
 pipline = transforms.Compose([
@@ -34,12 +41,15 @@ train_set = datasets.MNIST(
     download=True,
     transform=pipline
 )
+
 test_set = datasets.MNIST(
     root='./data',
     train=False,
     download=True,
     transform=pipline
 )
+
+print('train_set:{} test_set:{}'.format(len(train_set), len(test_set)))
 
 # 加载数据集
 train_loder = DataLoader(train_set, batch_size=BATCH_SIZE, shuffle=True)
@@ -63,11 +73,9 @@ class Digit(nn.Module):
         x = self.conv2(x)
         x = F.relu(x)
         x = x.view(input_size, -1)  # 展平
-
         x = self.fc1(x)
         x = F.relu(x)
         x = self.fc2(x)
-
         output = F.log_softmax(x, dim=1)  # 计算分类后，每个数字的概率
         return output
 
@@ -85,13 +93,11 @@ def train_model(model, device, train_loder, optimizer, epoch):
         data, target = data.to(device), target.to(device)
         optimizer.zero_grad()
         output = model(data)
-        # loss = F.nll_loss(output, target)
         loss = F.cross_entropy(output, target)
         pred = output.max(dim=1, keepdim=True)
         loss.backward()
         optimizer.step()
-
-        if batch_idx % 3000 == 0:
+        if batch_idx % 1000 == 0:
             print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
                 epoch, batch_idx * len(data), len(train_loder.dataset),
                 100. * batch_idx / len(train_loder), loss.item()))
@@ -109,11 +115,8 @@ def test_model(model, device, test_loader):
             test_loss = F.cross_entropy(output, target).item()
             pred = output.max(dim=1, keepdim=True)[1]
             correct += pred.eq(target.view_as(pred)).sum().item()
-
-            # rest += len(data)
-        # test_loss = test_loss / len(test_loader)
         test_loss = test_loss / len(test_loader.dataset)
-        print('\nTest set: Average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)\n'.format(
+        print('Test set: Average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)\n'.format(
             test_loss, correct, len(test_loader.dataset),
             100. * correct / len(test_loader.dataset)))
 
@@ -122,3 +125,7 @@ def test_model(model, device, test_loader):
 for epoch in range(1, EPOCHS + 1):
     train_model(model, DEVICE, train_loder, optimizer, epoch)
     test_model(model, DEVICE, test_loader)
+
+
+end = datetime.datetime.now()
+print('total time:', (end - start).seconds)
